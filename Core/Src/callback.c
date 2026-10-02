@@ -9,8 +9,7 @@ uint8_t tx_msg[10];
 //void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
 {
-  if (huart == &huart1 &&
-    (HAL_UARTEx_GetRxEventType(huart) == HAL_UART_RXEVENT_IDLE || HAL_UARTEx_GetRxEventType(huart) == HAL_UART_RXEVENT_TC))
+  if (huart == &huart1 && HAL_UARTEx_GetRxEventType(huart) != HAL_UART_RXEVENT_IDLE)
   {
     if (rx_msg[0] == 'R')
       HAL_GPIO_WritePin(LED_B_GPIO_Port, LED_B_Pin, GPIO_PIN_SET);
