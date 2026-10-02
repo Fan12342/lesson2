@@ -2,7 +2,7 @@
 #include "main.h"
 #include "usart.h"
 
-extern uint8_t rx_msg[1];
+extern uint8_t rx_msg[10];
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
@@ -13,6 +13,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     else if (rx_msg[0] == 'M')
       HAL_GPIO_WritePin(LED_B_GPIO_Port, LED_B_Pin, GPIO_PIN_RESET);
     HAL_UART_Transmit(&huart1, rx_msg, sizeof(rx_msg), 1000);
-    HAL_UART_Receive_DMA(&huart1, rx_msg, 1);
+    HAL_UART_Receive_DMA(&huart1, rx_msg, sizeof(rx_msg));
   }
 }

@@ -46,7 +46,7 @@
 
 /* USER CODE BEGIN PV */
 uint8_t tx_msg[] = "Robomaster 2027\r\n";
-uint8_t rx_msg[1];
+uint8_t rx_msg[10];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
