@@ -24,7 +24,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "callback.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -45,8 +45,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint8_t tx_msg[] = "Robomaster 2027\r\n";
-uint8_t rx_msg[10];
+//uint8_t tx_msg[] = "Robomaster 2027\r\n";
+//uint8_t rx_msg[10];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -91,8 +91,10 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_USART1_UART_Init();
+  MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
-  HAL_UARTEx_ReceiveToIdle_DMA(&huart1, (uint8_t *)rx_msg, sizeof(rx_msg));
+  //HAL_UARTEx_ReceiveToIdle_DMA(&huart1, (uint8_t *)rx_msg, sizeof(rx_msg));
+  rc_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */

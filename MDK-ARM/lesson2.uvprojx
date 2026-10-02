@@ -393,9 +393,14 @@
           <GroupName>Application/User/Core</GroupName>
           <Files>
             <File>
-              <FileName>callback.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\callback.c</FilePath>
+              <FileName>callback.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Core\Src\callback.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>remote.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\Core\Src\remote.cpp</FilePath>
             </File>
             <File>
               <FileName>main.c</FileName>
