@@ -22,26 +22,34 @@ Remote::Remote(UART_HandleTypeDef *huart): huart_(huart), connect_(REMOTE_CONNEC
 // Start UART(SBUS) receive. 打开UART接收
 void Remote::init() {
     HAL_UARTEx_ReceiveToIdle_DMA(huart_, rx_buf, RC_RX_BUF_SIZE);
+    connect_.refresh();
 }
 
 // Reset RC data. 重置遥控器数据
 void Remote::reset() {
-    memset(rx_buf, 0, sizeof(rx_buf));
-    memset(rx_data_, 0, sizeof(rx_data_));
-    channel_.l_row = 0;
-    channel_.l_col = 0;
+    memset(rx_buf, 0, RC_RX_BUF_SIZE);
+    memset(rx_data_, 0, RC_FRAME_LEN);
+    memset(&channel_, 0, sizeof(channel_));
+    rx_len_ = 0;
+    switch_.l = RCSwitchState_e::DOWN;
+    switch_.r = RCSwitchState_e::DOWN;
 }
 
 // Check for uart correspondence. 检查串口是否匹配
-void Remote::rxMsgCheck(UART_HandleTypeDef *huart) const {
-
+bool Remote::rxMsgCheck(UART_HandleTypeDef *huart) const {
+    if (huart == &huart3 && HAL_UARTEx_GetRxEventType(&huart3) != HAL_UART_RXEVENT_IDLE)
+    {
+        return true;
+    }
+    return false;
 }
 
 // Update connect status, restart UART(SBUS) receive.
 // 更新连接状态，重新打开UART(SBUS)接收
-void Remote::rxMsgCallback(){
+void Remote::rxMsgCallback(uint16_t Size){
     memcpy(rx_data_, rx_buf, RC_FRAME_LEN);
     connect_.refresh();
+    rx_len_ = Size;
     handle();
     HAL_UARTEx_ReceiveToIdle_DMA(huart_, rx_buf, RC_RX_BUF_SIZE);
 }

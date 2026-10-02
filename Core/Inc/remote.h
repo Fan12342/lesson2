@@ -50,8 +50,8 @@ public:
 
     void init();
     void reset(void);
-    void rxMsgCallback();
-    void rxMsgCheck(UART_HandleTypeDef* huart) const;
+    void rxMsgCallback(uint16_t Size);
+    bool rxMsgCheck(UART_HandleTypeDef* huart) const;
     void handle(void);
     
 };

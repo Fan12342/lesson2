@@ -16,9 +16,9 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
     //memcpy(tx_msg, rx_msg, Size);
     //HAL_UART_Transmit(&huart1, tx_msg, Size, 1000);
     //HAL_UARTEx_ReceiveToIdle_DMA(&huart1, rx_msg, sizeof(rx_msg));
-  } else if (huart == &huart3 && HAL_UARTEx_GetRxEventType(&huart3) != HAL_UART_RXEVENT_IDLE)
+  } else if (rc.rxMsgCheck(huart))
   {
-    rc.rxMsgCallback();
+    rc.rxMsgCallback(Size);
   }
 }
 
